@@ -49,24 +49,29 @@ var csvParse = function(csvArg) {
   //see csvParse-solution.js for Fullstack's example code, it's more concise.
 };
 
-friendList = csvParse(csvFile);
+var customizedTemplate = ejs.render(emailTemplate, 
+                { firstName: firstName,  
+                  numMonthsSinceContact: numMonthsSinceContact
+                });
 
-friendList.forEach(function(row){
+// friendList = csvParse(csvFile);
 
-    var firstName = row["firstName"];
-    var numMonthsSinceContact = row["numMonthsSinceContact"];
+// friendList.forEach(function(row){
 
-    // we make a copy of the emailTemplate variable to a new variable to ensure
-       // we don't edit the original template text since we'll need to us it for 
-       // multiple emails
+//     var firstName = row["firstName"];
+//     var numMonthsSinceContact = row["numMonthsSinceContact"];
 
-    var templateCopy = emailTemplate;
+//     // we make a copy of the emailTemplate variable to a new variable to ensure
+//        // we don't edit the original template text since we'll need to us it for 
+//        // multiple emails
 
-    // use .replace to replace FIRST_NAME and NUM_MONTHS_SINCE_CONTACT with firstName and  monthsSinceLastContact  
-    templateCopy = templateCopy.replace(/FIRST_NAME/gi,
-    firstName).replace(/NUM_MONTHS_SINCE_CONTACT/gi, numMonthsSinceContact);
+//     var templateCopy = emailTemplate;
 
-    console.log(templateCopy);
+//     // use .replace to replace FIRST_NAME and NUM_MONTHS_SINCE_CONTACT with firstName and  monthsSinceLastContact  
+//     templateCopy = templateCopy.replace(/FIRST_NAME/gi,
+//     firstName).replace(/NUM_MONTHS_SINCE_CONTACT/gi, numMonthsSinceContact);
+
+//     console.log(templateCopy);
 
 
-})
+// })
