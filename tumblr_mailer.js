@@ -35,6 +35,10 @@ var csvParse = function(csvArg) {
   for (var i = 0; i < csv_multiarr.length; i++) {
     var newContact = new thisContactInfo();
     //add values from subarray into object
+    newContact.firstName = csv_multiarr[i][0];
+    newContact.lastName = csv_multiarr[i][1];
+    newContact.numMonthsSinceContact = csv_multiarr[i][2];
+    newContact.emailAddress = csv_multiarr[i][3];
     //add those objects into a new array
     csvArr.push(newContact);
   }
@@ -44,5 +48,3 @@ var csvParse = function(csvArg) {
 };
 
 console.log(csvParse(csvFile));
-
-// console.log(csvParse(csvFile));
