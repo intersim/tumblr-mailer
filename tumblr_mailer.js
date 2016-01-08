@@ -1,6 +1,8 @@
 var fs = require('fs');
+var ejs = require('ejs');
 
 var csvFile = fs.readFileSync("friend_list.csv","utf8");
+var emailTemplate = fs.readFileSync('email_template.html', 'utf8');
 
 var csvParse = function(csvArg) {
 
@@ -10,14 +12,13 @@ var csvParse = function(csvArg) {
   var csv_multiarr = [];
   //csv_data should be an array, with each element a line from the csvFile
   csv_data = csvArg.split("\n");
-  csv_data.pop();
+  csv_data.pop();    
   csv_data.shift();
   //for each array element, turn into a subarray
   for (var i = 0; i < csv_data.length; i++) {
     csv_subdata = csv_data[i].split(",");
     csv_multiarr.push(csv_subdata);
   };
-    console.log(csv_multiarr);
 
   //Creating new Contact objects
   var contactInfo = function() {
@@ -45,6 +46,27 @@ var csvParse = function(csvArg) {
 
   //return that array
   return csvArr;
+  //see csvParse-solution.js for Fullstack's example code, it's more concise.
 };
 
-console.log(csvParse(csvFile));
+friendList = csvParse(csvFile);
+
+friendList.forEach(function(row){
+
+    var firstName = row["firstName"];
+    var numMonthsSinceContact = row["numMonthsSinceContact"];
+
+    // we make a copy of the emailTemplate variable to a new variable to ensure
+       // we don't edit the original template text since we'll need to us it for 
+       // multiple emails
+
+    var templateCopy = emailTemplate;
+
+    // use .replace to replace FIRST_NAME and NUM_MONTHS_SINCE_CONTACT with firstName and  monthsSinceLastContact  
+    templateCopy = templateCopy.replace(/FIRST_NAME/gi,
+    firstName).replace(/NUM_MONTHS_SINCE_CONTACT/gi, numMonthsSinceContact);
+
+    console.log(templateCopy);
+
+
+})
